@@ -175,18 +175,12 @@ button { font-family: inherit; }
   letter-spacing: 0.01em;
   color: var(--color-text);
 
-  &__code {
+  &__ground {
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
 
-  &__the {
-    font-weight: 400;
-    font-size: 0.75em;
-    color: var(--color-text-muted);
-  }
-
-  &__wild {
+  &__truth {
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: 700;
@@ -375,21 +369,12 @@ button { font-family: inherit; }
   flex-wrap: wrap;
   gap: 0.15em;
 
-  .hero__code {
+  .hero__ground {
     text-transform: uppercase;
     letter-spacing: 0.01em;
   }
 
-  .hero__the {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 400;
-    color: var(--color-text-muted);
-    font-size: 0.55em;
-    align-self: center;
-  }
-
-  .hero__wild {
+  .hero__truth {
     font-family: var(--font-serif);
     font-style: italic;
     color: var(--color-primary);
