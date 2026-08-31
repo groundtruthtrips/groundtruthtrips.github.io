@@ -71,7 +71,7 @@ Short "About" paragraph for this edition.
 ```
 
 That's it — the new edition automatically appears as a card on the homepage
-(sorted by `start_date`) and gets its own page at `/expeditions/sabah-2027/`.
+(sorted by `start_date`) and gets its own page at `/trips/sabah-2027/`.
 No other file needs to change.
 
 Set `featured: true` on at most one edition to control which one the

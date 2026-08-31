@@ -19,7 +19,7 @@ github_username: ""
 collections:
   editions:
     output: true
-    permalink: /expeditions/:path/
+    permalink: /trips/:path/
 
 defaults:
   - scope:
