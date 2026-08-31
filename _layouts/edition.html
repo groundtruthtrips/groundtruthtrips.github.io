@@ -1,0 +1,264 @@
+---
+layout: default
+---
+{% assign has_hero_image = false %}
+{% if page.hero_image and page.hero_image != "" %}{% assign has_hero_image = true %}{% endif %}
+{% assign same_month = false %}
+{% if page.start_date and page.end_date %}
+  {% assign start_month = page.start_date | date: "%Y-%m" %}
+  {% assign end_month = page.end_date | date: "%Y-%m" %}
+  {% if start_month == end_month %}{% assign same_month = true %}{% endif %}
+{% endif %}
+<article class="edition">
+
+  <header class="edition-hero{% if has_hero_image %} edition-hero--photo{% else %} edition-hero--placeholder{% endif %}">
+    {% if has_hero_image %}
+      <img class="edition-hero__image" src="{{ page.hero_image | relative_url }}" alt="{{ page.hero_image_alt | default: page.title }}">
+      <div class="edition-hero__scrim" aria-hidden="true"></div>
+    {% endif %}
+    <div class="container edition-hero__inner">
+      <a class="back-link" href="{{ '/#expeditions' | relative_url }}">&larr; All trips</a>
+      {% if page.status %}<span class="badge badge--{{ page.status | slugify }}">{{ page.status | capitalize }}</span>{% endif %}
+      <h1 class="edition-hero__title">{{ page.title }}</h1>
+      <p class="edition-hero__meta">
+        {% if page.location %}{{ page.location }}{% endif %}
+        {% if page.start_date %}
+          <span class="edition-hero__dates">
+            &middot;
+            {% if page.end_date %}
+              {% if same_month %}{{ page.start_date | date: "%-d" }}&ndash;{{ page.end_date | date: "%-d %B %Y" }}{% else %}{{ page.start_date | date: "%-d %B" }}&ndash;{{ page.end_date | date: "%-d %B %Y" }}{% endif %}
+            {% else %}
+              {{ page.start_date | date: "%-d %B %Y" }}
+            {% endif %}
+          </span>
+        {% endif %}
+      </p>
+      {% if page.intro %}<p class="edition-hero__intro">{{ page.intro }}</p>{% endif %}
+    </div>
+    {% if has_hero_image and page.hero_image_credit %}
+      <p class="edition-hero__credit">
+        Photo:
+        {% if page.hero_image_credit.source_url %}<a href="{{ page.hero_image_credit.source_url | escape }}">{{ page.hero_image_credit.text }}</a>{% else %}{{ page.hero_image_credit.text }}{% endif %}
+        {% if page.hero_image_credit.note %}&middot; {{ page.hero_image_credit.note }}{% endif %}
+      </p>
+    {% endif %}
+  </header>
+
+  <div class="container edition__body">
+
+    {% unless content == empty %}
+    <section class="edition-section" aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
+      {{ content }}
+    </section>
+    {% endunless %}
+
+    {% if page.key_dates and page.key_dates.size > 0 %}
+    <section class="edition-section" aria-labelledby="key-dates-heading">
+      <h2 id="key-dates-heading">Key dates</h2>
+      <ol class="timeline">
+        {% for entry in page.key_dates %}
+          <li class="timeline__item">
+            <p class="timeline__when">{{ entry.when }}</p>
+            <h3 class="timeline__title">{{ entry.title }}</h3>
+            {% if entry.description %}<p class="timeline__description">{{ entry.description }}</p>{% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+    {% endif %}
+
+    {% if page.objectives and page.objectives.size > 0 %}
+    <section class="edition-section" aria-labelledby="objectives-heading">
+      <h2 id="objectives-heading">Objectives</h2>
+      <div class="program-grid">
+        {% for objective in page.objectives %}
+          <div class="program-item">
+            <h3>{{ objective.title }}</h3>
+            {% if objective.description %}<p>{{ objective.description }}</p>{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <section class="edition-section" aria-labelledby="program-heading">
+      <h2 id="program-heading">Program</h2>
+      <div class="program-grid">
+        <div class="program-item">
+          <h3>Explore</h3>
+          <p>Field visits and biodiversity activities.</p>
+        </div>
+        <div class="program-item">
+          <h3>Learn</h3>
+          <p>Conservation topics, practitioner perspectives, and student lightning talks.</p>
+        </div>
+        <div class="program-item">
+          <h3>Build</h3>
+          <p>Student-led computing projects.</p>
+        </div>
+        <div class="program-item">
+          <h3>Share</h3>
+          <p>Project presentations and reflection.</p>
+        </div>
+      </div>
+      {% if page.program_elements and page.program_elements.size > 0 %}
+        <p class="edition-section__note">The detailed program remains flexible and is planned around the following elements.</p>
+        <ul class="element-list">
+          {% for element in page.program_elements %}
+            <li>
+              <h3>{{ element.title }}</h3>
+              {% if element.description %}<p>{{ element.description }}</p>{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </section>
+
+    {% if page.activities and page.activities.size > 0 %}
+    <section class="edition-section" aria-labelledby="activities-heading">
+      <h2 id="activities-heading">Activities</h2>
+      <p class="edition-section__note">Planned activities under consideration for this edition. Not guaranteed, and subject to change based on factors such as weather conditions.</p>
+      <div class="activities-grid">
+        {% for activity in page.activities %}
+          {% assign activity_image_file = nil %}
+          {% if activity.image and activity.image != "" %}
+            {% assign activity_image_file = site.static_files | where: "path", activity.image | first %}
+          {% endif %}
+          <div class="activity-card">
+            <div class="activity-card__media{% unless activity_image_file %} activity-card__media--placeholder{% endunless %}"{% if activity_image_file %} style="background-image:url('{{ activity.image | relative_url }}');"{% endif %} aria-hidden="true"></div>
+            <div class="activity-card__body">
+              <h3 class="activity-card__title">{{ activity.title }}</h3>
+              {% if activity.description %}<p class="activity-card__description">{{ activity.description }}</p>{% endif %}
+              {% if activity.url and activity.url != "" %}
+                <a class="activity-card__link" href="{{ activity.url | escape }}" target="_blank" rel="noopener noreferrer">{{ activity.link_text | default: "Learn more" }} &#8599;</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if page.gallery and page.gallery.size > 0 %}
+    <section class="edition-section" aria-labelledby="gallery-heading">
+      <h2 id="gallery-heading">Gallery</h2>
+      <div class="gallery-grid">
+        {% for photo in page.gallery %}
+          <figure class="gallery-item">
+            <img src="{{ photo.image | relative_url }}" alt="{{ photo.alt | default: photo.caption }}" loading="lazy">
+            <figcaption>
+              {% if photo.caption %}<span class="gallery-item__caption">{{ photo.caption }}</span>{% endif %}
+              <span class="gallery-item__credit">
+                Photo:
+                {% if photo.source_url %}<a href="{{ photo.source_url | escape }}">{{ photo.credit_text }}</a>{% else %}{{ photo.credit_text }}{% endif %}
+                {% if photo.license %}&middot; {% if photo.credit_url %}<a href="{{ photo.credit_url | escape }}">{{ photo.license }}</a>{% else %}{{ photo.license }}{% endif %}{% endif %}
+              </span>
+            </figcaption>
+          </figure>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% assign has_local_partners = false %}
+    {% if page.local_partners and page.local_partners.size > 0 %}{% assign has_local_partners = true %}{% endif %}
+    {% if page.organizer or has_local_partners %}
+    <section class="edition-section" aria-labelledby="partners-heading">
+      <h2 id="partners-heading">Organization and Partners</h2>
+      <div class="partners-grid">
+        {% if page.organizer %}
+          {% assign has_organizer_photo = false %}
+          {% if page.organizer.photo and page.organizer.photo != "" %}{% assign has_organizer_photo = true %}{% endif %}
+          <div class="partner-card partner-card--person">
+            {% if page.organizer.affiliation_logo and page.organizer.affiliation_logo != "" %}
+              <img class="partner-card__logo partner-card__logo--compact" src="{{ page.organizer.affiliation_logo | relative_url }}" alt="{{ page.organizer.affiliation }} logo">
+            {% endif %}
+            {% if has_organizer_photo %}
+              <img class="partner-card__photo" src="{{ page.organizer.photo | relative_url }}" alt="{{ page.organizer.name }}">
+            {% endif %}
+            <h3>{{ page.organizer.name }}</h3>
+            <p>Organizer{% if page.organizer.affiliation %}, {{ page.organizer.affiliation }}{% endif %}{% if page.organizer.bio and page.organizer.bio != "" %} &mdash; {{ page.organizer.bio }}{% endif %}.</p>
+            {% if page.organizer.link and page.organizer.link != "" %}
+              <a class="card-link" href="{{ page.organizer.link | escape }}" target="_blank" rel="noopener noreferrer">{{ page.organizer.name }}&rsquo;s website</a>
+            {% endif %}
+          </div>
+        {% endif %}
+        {% for partner in page.local_partners %}
+          {% assign has_partner_photo = false %}
+          {% if partner.photo and partner.photo != "" %}{% assign has_partner_photo = true %}{% endif %}
+          <div class="partner-card{% if has_partner_photo %} partner-card--person{% endif %}">
+            {% if partner.logo and partner.logo != "" %}
+              {% if partner.logo_alt %}
+                <img class="partner-card__logo" src="{{ partner.logo | relative_url }}" alt="{{ partner.logo_alt }}">
+              {% else %}
+                <img class="partner-card__logo" src="{{ partner.logo | relative_url }}" alt="{{ partner.name }} logo">
+              {% endif %}
+            {% endif %}
+            {% if has_partner_photo %}
+              <img class="partner-card__photo" src="{{ partner.photo | relative_url }}" alt="{{ partner.name }}">
+            {% endif %}
+            <h3>{{ partner.name }}</h3>
+            {% if partner.description %}<p>{{ partner.description }}</p>{% endif %}
+            {% if partner.link and partner.link.url %}
+              <a class="card-link" href="{{ partner.link.url | escape }}" target="_blank" rel="noopener noreferrer">{{ partner.link.label | default: "Related link" }}</a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if page.resources and page.resources.size > 0 %}
+    <section class="edition-section" aria-labelledby="resources-heading">
+      <h2 id="resources-heading">Related resources</h2>
+      <ul class="resource-list">
+        {% for resource in page.resources %}
+          <li><a class="card-link" href="{{ resource.url | escape }}" target="_blank" rel="noopener noreferrer">{{ resource.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    <section class="edition-section" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Projects</h2>
+      {% if page.projects and page.projects.size > 0 %}
+        <div class="projects-grid">
+          {% for project in page.projects %}
+            <div class="project-card">
+              <h3>{{ project.title }}</h3>
+              {% if project.description %}<p>{{ project.description }}</p>{% endif %}
+              {% if project.url %}<a href="{{ project.url }}">View project</a>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>Projects will be developed during the trip in response to challenges identified together with local partners.</p>
+        <!-- Future project cards for this edition can be added via a `projects:` list in the front matter. -->
+        <div class="projects-grid projects-grid--empty" aria-hidden="true"></div>
+      {% endif %}
+    </section>
+
+    <section class="edition-section" aria-labelledby="location-heading">
+      <h2 id="location-heading">Location</h2>
+      {% if page.map_url and page.map_url != "" %}
+        {% assign map_embed_url = page.map_url | replace: "/edit", "/embed" %}
+        <div class="map-embed">
+          <iframe src="{{ map_embed_url | escape }}" title="Map of {{ page.location }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <a class="button button--secondary map-embed__link" href="{{ page.map_url | escape }}" target="_blank" rel="noopener noreferrer">View locations on Google Maps</a>
+      {% else %}
+        <div class="map-placeholder" role="img" aria-label="Map of {{ page.location }} coming soon">
+          <p>Map coming soon</p>
+        </div>
+      {% endif %}
+    </section>
+
+    <section class="edition-section" aria-labelledby="updates-heading">
+      <h2 id="updates-heading">Updates</h2>
+      <!-- Future: loop over site.posts | where: "edition", page.slug to list edition-specific updates here. -->
+      <p class="edition-section__note">Project updates will appear here.</p>
+    </section>
+
+  </div>
+</article>

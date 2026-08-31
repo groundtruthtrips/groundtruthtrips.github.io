@@ -1,0 +1,28 @@
+{% assign e = include.edition %}
+{% assign has_image = false %}
+{% if e.hero_image and e.hero_image != "" %}{% assign has_image = true %}{% endif %}
+{% assign same_month = false %}
+{% if e.start_date and e.end_date %}
+  {% assign start_month = e.start_date | date: "%Y-%m" %}
+  {% assign end_month = e.end_date | date: "%Y-%m" %}
+  {% if start_month == end_month %}{% assign same_month = true %}{% endif %}
+{% endif %}
+<article class="edition-card">
+  <div class="edition-card__media{% unless has_image %} edition-card__media--placeholder{% endunless %}"{% if has_image %} style="background-image:url('{{ e.hero_image | relative_url }}');"{% endif %} aria-hidden="true">
+    {% if e.status %}<span class="badge badge--{{ e.status | slugify }}">{{ e.status | capitalize }}</span>{% endif %}
+  </div>
+  <div class="edition-card__body">
+    {% if e.start_date %}
+      <p class="edition-card__dates">
+        {% if e.end_date %}
+          {% if same_month %}{{ e.start_date | date: "%-d" }}&ndash;{{ e.end_date | date: "%-d %b %Y" }}{% else %}{{ e.start_date | date: "%-d %b" }}&ndash;{{ e.end_date | date: "%-d %b %Y" }}{% endif %}
+        {% else %}
+          {{ e.start_date | date: "%-d %b %Y" }}
+        {% endif %}
+      </p>
+    {% endif %}
+    <h3 class="edition-card__title"><a class="edition-card__link" href="{{ e.url | relative_url }}">{{ e.title }}</a></h3>
+    {% if e.location %}<p class="edition-card__location">{{ e.location }}</p>{% endif %}
+    {% if e.summary %}<p class="edition-card__summary">{{ e.summary }}</p>{% endif %}
+  </div>
+</article>

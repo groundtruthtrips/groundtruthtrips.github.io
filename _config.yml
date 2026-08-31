@@ -1,0 +1,60 @@
+# ----------------------------------------------------------------------
+# Ground Truth — Jekyll site configuration
+# ----------------------------------------------------------------------
+
+title: "Ground Truth"
+tagline: "Computer science in service of biodiversity."
+description: "Student computing trips for biodiversity and conservation — a land-based trip format of the CCSGP Study Trip Programme at NUS Computing."
+url: "https://groundtruthtrips.github.io"
+baseurl: ""
+
+# Author / organization info used in metadata
+author: "Ground Truth"
+twitter_username: ""
+github_username: ""
+
+# ----------------------------------------------------------------------
+# Collections
+# ----------------------------------------------------------------------
+collections:
+  editions:
+    output: true
+    permalink: /expeditions/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "editions"
+    values:
+      layout: "edition"
+  - scope:
+      path: ""
+    values:
+      layout: "page"
+
+# ----------------------------------------------------------------------
+# Build settings
+# ----------------------------------------------------------------------
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+sass:
+  style: compressed
+
+permalink: /:title/
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - node_modules
+  - ".sass-cache"
+  # Internal planning documents must never be published to the built site.
+  - "*.docx"

@@ -1,0 +1,26 @@
+<header class="site-header">
+  <div class="container site-header__inner">
+    <div class="site-header__brand">
+      <a class="wordmark" href="{{ '/' | relative_url }}">
+        <span class="wordmark__code">Code</span><span class="wordmark__the">the</span><span class="wordmark__wild">Wild</span>
+      </a>
+      <a class="site-header__ccsgp" href="https://www.ccsgp.comp.nus.edu.sg/" title="Part of the CCSGP Study Trip Programme">
+        <img src="{{ '/assets/images/partners/ccsgp-logo-transparent.png' | relative_url }}" alt="Centre for Computing for Social Good and Philanthropy (CCSGP) logo">
+        <span class="site-header__ccsgp-label">A CCSGP<br>Study Trip</span>
+      </a>
+    </div>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation">
+      <span></span>
+    </label>
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="{{ '/' | relative_url }}">Home</a></li>
+        <li><a href="{{ '/#expeditions' | relative_url }}">Trips</a></li>
+        <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

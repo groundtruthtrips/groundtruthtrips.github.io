@@ -1,0 +1,55 @@
+---
+layout: default
+---
+<section class="hero">
+  <div class="container hero__inner">
+    <h1 class="hero__wordmark">
+      <span class="hero__code">Code</span><span class="hero__the">the</span><span class="hero__wild">Wild</span>
+    </h1>
+    <p class="hero__tagline">{{ site.tagline }}</p>
+    <div class="hero__intro">
+      {{ content }}
+    </div>
+    {% assign featured = site.editions | where: "featured", true | first %}
+    {% unless featured %}{% assign featured = site.editions | sort: "start_date" | last %}{% endunless %}
+    {% if featured %}
+      <a class="button button--primary" href="{{ featured.url | relative_url }}">Explore {{ featured.title }}</a>
+    {% endif %}
+  </div>
+</section>
+
+<section id="expeditions" class="editions">
+  <div class="container">
+    <h2 class="section-title">Trips</h2>
+    <div class="editions-grid">
+      {% assign sorted_editions = site.editions | sort: "start_date" | reverse %}
+      {% for edition in sorted_editions %}
+        {% include edition-card.html edition=edition %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="model">
+  <div class="container">
+    <h2 class="section-title">Explore. Understand. Build. Showcase.</h2>
+    <div class="model-grid">
+      <div class="model-item">
+        <h3>Explore</h3>
+        <p>Experience biodiversity and conservation work in the field.</p>
+      </div>
+      <div class="model-item">
+        <h3>Understand</h3>
+        <p>Learn from local practitioners and communities.</p>
+      </div>
+      <div class="model-item">
+        <h3>Build</h3>
+        <p>Apply computing skills to real conservation challenges.</p>
+      </div>
+      <div class="model-item">
+        <h3>Showcase</h3>
+        <p>Document and share the projects you build.</p>
+      </div>
+    </div>
+  </div>
+</section>
