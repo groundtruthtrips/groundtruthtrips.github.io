@@ -55,6 +55,32 @@ key_dates:
     title: "Return to Singapore"
     description: "Closing session in the morning, followed by the return ferry to Singapore."
 
+schedule:
+  - date: "Mon 7 Dec"
+    plan: "Arrival, warm-up, programme overview and meeting the Politeknik students"
+  - date: "Tue 8 Dec"
+    plan: "Morning: investigate and discuss topics. Afternoon: student presentations on computing, biodiversity and local initiatives"
+  - date: "Wed 9 Dec"
+    plan: "Gudem Bee Farm, Kopi and D’Bamboo Kamp"
+  - date: "Thu 10 Dec"
+    plan: "Batik workshop"
+  - date: "Fri 11 Dec"
+    plan: "Classroom discussions, project brainstorming and discussion of initial project proposals"
+  - date: "Sat 12 Dec"
+    plan: "Full day in Pengudang: mangrove tour, possible kayaking, planting, bamboo-straw workshop and Trash House"
+  - date: "Sun 13 Dec"
+    plan: "Day off"
+  - date: "Mon 14 Dec"
+    plan: "Morning: develop project proposals. Afternoon: proposal presentations and feedback"
+  - date: "Tue 15 Dec"
+    plan: "Classroom project work; revisit stakeholders if needed. Evening: firefly outing"
+  - date: "Wed 16 Dec"
+    plan: "Classroom project work; revisit stakeholders if needed"
+  - date: "Thu 17 Dec"
+    plan: "Classroom project work and preparation for final presentations"
+  - date: "Fri 18 Dec"
+    plan: "Final project presentations, closing and return to Singapore"
+
 objectives:
   - title: "Biodiversity and conservation education"
     description: "Exposure to conservation practice through field activities, discussions with practitioners, and short student-led learning sessions."
@@ -104,11 +130,6 @@ activities:
     url: "https://desawisataekang.id/en-gb/"
     image: "/assets/images/bintan/dbamboo.jpg"
 
-  - title: "Gurun Pasir Bintan"
-    description: "Visit Bintan's distinctive former mining landscape, now known for its sand formations and blue lakes."
-    url: "https://gurunpasirbintan.com/"
-    image: "/assets/images/bintan/gurun-pasir.jpg"
-
   - title: "Mangrove and Firefly Tour"
     description: "Explore Bintan's mangroves after dark and observe fireflies along the river."
     url: "https://bintanfireflies.com/"
@@ -147,4 +168,4 @@ The trip is planned for a group of around ten NUS School of Computing students, 
 
 Classroom and project sessions would be based at Politeknik Bintan Cakrawala, with field activities at sites across Bintan. December is a wetter period on the island, so the programme is designed to stay flexible.
 
-This page describes the intended shape of the trip rather than a fixed schedule. Activities, timing, and arrangements remain subject to local conditions such as weather, and to confirmation with local partners.
+The schedule on this page is preliminary rather than fixed. Activities, timing, and arrangements remain subject to local conditions such as weather, and to confirmation with local partners.

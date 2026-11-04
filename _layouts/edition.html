@@ -115,6 +115,21 @@ layout: default
       {% endif %}
     </section>
 
+    {% if page.schedule and page.schedule.size > 0 %}
+    <section class="edition-section" aria-labelledby="schedule-heading">
+      <h2 id="schedule-heading">Preliminary schedule</h2>
+      <p class="edition-section__note">This is a preliminary schedule. It will be adjusted during the trip depending on weather, project progress, and the availability of local partners.</p>
+      <ol class="schedule">
+        {% for day in page.schedule %}
+          <li class="schedule__row">
+            <p class="schedule__date">{{ day.date }}</p>
+            <p class="schedule__plan">{{ day.plan }}</p>
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+    {% endif %}
+
     {% if page.activities and page.activities.size > 0 %}
     <section class="edition-section" aria-labelledby="activities-heading">
       <h2 id="activities-heading">Activities</h2>
