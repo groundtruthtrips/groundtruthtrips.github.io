@@ -13,7 +13,7 @@ layout: default
 
   <header class="edition-hero{% if has_hero_image %} edition-hero--photo{% else %} edition-hero--placeholder{% endif %}">
     {% if has_hero_image %}
-      <img class="edition-hero__image" src="{{ page.hero_image | relative_url }}" alt="{{ page.hero_image_alt | default: page.title }}">
+      <img class="edition-hero__image" src="{{ page.hero_image | relative_url }}" alt="{{ page.hero_image_alt | default: page.title }}"{% if page.hero_image_position %} style="object-position: {{ page.hero_image_position }};"{% endif %}>
       <div class="edition-hero__scrim" aria-hidden="true"></div>
     {% endif %}
     <div class="container edition-hero__inner">
@@ -158,21 +158,32 @@ layout: default
     {% if page.gallery and page.gallery.size > 0 %}
     <section class="edition-section" aria-labelledby="gallery-heading">
       <h2 id="gallery-heading">Gallery</h2>
-      <div class="gallery-grid">
-        {% for photo in page.gallery %}
-          <figure class="gallery-item">
-            <img src="{{ photo.image | relative_url }}" alt="{{ photo.alt | default: photo.caption }}" loading="lazy">
-            <figcaption>
-              {% if photo.caption %}<span class="gallery-item__caption">{{ photo.caption }}</span>{% endif %}
-              <span class="gallery-item__credit">
-                Photo:
-                {% if photo.source_url %}<a href="{{ photo.source_url | escape }}">{{ photo.credit_text }}</a>{% else %}{{ photo.credit_text }}{% endif %}
-                {% if photo.license %}&middot; {% if photo.credit_url %}<a href="{{ photo.credit_url | escape }}">{{ photo.license }}</a>{% else %}{{ photo.license }}{% endif %}{% endif %}
-              </span>
-            </figcaption>
-          </figure>
-        {% endfor %}
+      {% if page.gallery_credit %}<p class="edition-section__note">Photos by {{ page.gallery_credit }} unless credited otherwise.</p>{% endif %}
+      <div class="carousel" data-carousel>
+        <div class="carousel__track" tabindex="0" role="region" aria-label="Photo gallery, scroll horizontally for more photos">
+          {% for photo in page.gallery %}
+            <figure class="carousel__slide" aria-label="Photo {{ forloop.index }} of {{ forloop.length }}">
+              <img src="{{ photo.image | relative_url }}" alt="{{ photo.alt | default: photo.caption }}"{% unless forloop.first %} loading="lazy"{% endunless %} width="1600" height="900">
+              <figcaption>
+                {% if photo.caption %}<span class="gallery-item__caption">{{ photo.caption }}</span>{% endif %}
+                {% if photo.credit_text %}
+                <span class="gallery-item__credit">
+                  Photo:
+                  {% if photo.source_url %}<a href="{{ photo.source_url | escape }}">{{ photo.credit_text }}</a>{% else %}{{ photo.credit_text }}{% endif %}
+                  {% if photo.license %}&middot; {% if photo.credit_url %}<a href="{{ photo.credit_url | escape }}">{{ photo.license }}</a>{% else %}{{ photo.license }}{% endif %}{% endif %}
+                </span>
+                {% endif %}
+              </figcaption>
+            </figure>
+          {% endfor %}
+        </div>
+        <div class="carousel__controls" hidden>
+          <button type="button" class="carousel__button" data-carousel-prev aria-label="Previous photo">&larr;</button>
+          <p class="carousel__counter" aria-live="polite"><span data-carousel-current>1</span> / {{ page.gallery.size }}</p>
+          <button type="button" class="carousel__button" data-carousel-next aria-label="Next photo">&rarr;</button>
+        </div>
       </div>
+      <script src="{{ '/assets/js/carousel.js' | relative_url }}" defer></script>
     </section>
     {% endif %}
 
@@ -271,8 +282,19 @@ layout: default
 
     <section class="edition-section" aria-labelledby="updates-heading">
       <h2 id="updates-heading">Updates</h2>
-      <!-- Future: loop over site.posts | where: "edition", page.slug to list edition-specific updates here. -->
-      <p class="edition-section__note">Project updates will appear here.</p>
+      {% if page.updates and page.updates.size > 0 %}
+        <ol class="timeline">
+          {% for update in page.updates %}
+            <li class="timeline__item">
+              <p class="timeline__when">{{ update.when }}</p>
+              <h3 class="timeline__title">{{ update.title }}</h3>
+              {% if update.description %}<p class="timeline__description">{{ update.description }}</p>{% endif %}
+            </li>
+          {% endfor %}
+        </ol>
+      {% else %}
+        <p class="edition-section__note">Project updates will appear here.</p>
+      {% endif %}
     </section>
 
   </div>
