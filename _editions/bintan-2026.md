@@ -81,6 +81,10 @@ schedule:
   - date: "Fri 18 Dec"
     plan: "Final project presentations, closing and return to Singapore"
 
+resources:
+  - label: "Packing list"
+    url: "https://docs.google.com/document/d/1CdeCD5PCLE5w6Qhh0XEJrFvwYj8oSX2nz0E2jhsD9gc/edit?tab=t.0"
+
 updates:
   - when: "5 November 2026"
     title: "Preliminary schedule published"
