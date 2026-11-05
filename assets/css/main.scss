@@ -842,6 +842,69 @@ button { font-family: inherit; }
   &:hover { color: var(--color-primary-dark); }
 }
 
+// iNaturalist Bioblitz observations (filled in by assets/js/inaturalist.js)
+.observations {
+  margin-top: var(--space-3);
+}
+
+.observations__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &[hidden] { display: none; }
+}
+
+.observation {
+  a {
+    display: block;
+    height: 100%;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.15s ease;
+
+    &:hover { border-color: var(--color-primary); }
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background: var(--color-bg-alt);
+  }
+}
+
+.observation__body {
+  padding: 0.6rem 0.75rem 0.75rem;
+}
+
+.observation__name {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text) !important;
+  line-height: 1.3;
+}
+
+.observation__sci {
+  margin: 0.1rem 0 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.observation__meta {
+  margin: 0.35rem 0 0;
+  font-size: 0.75rem;
+}
+
 // Gallery grid
 // Gallery carousel (scroll-snap; prev/next buttons added by assets/js/carousel.js)
 .carousel__track {
@@ -864,6 +927,7 @@ button { font-family: inherit; }
   flex: 0 0 100%;
   margin: 0;
   scroll-snap-align: start;
+  scroll-snap-stop: always;   // a fast swipe on touch screens stops at each photo
 
   img {
     display: block;

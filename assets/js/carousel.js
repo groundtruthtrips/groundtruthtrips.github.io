@@ -9,13 +9,23 @@ document.querySelectorAll("[data-carousel]").forEach(function (carousel) {
   var current = carousel.querySelector("[data-carousel-current]");
   if (slides.length < 2) return;
 
+  // Scroll position of each slide within the track (accounts for the gap
+  // between slides, which a plain scrollLeft / slideWidth would ignore).
+  function slideLeft(i) {
+    return slides[i].offsetLeft - slides[0].offsetLeft;
+  }
+
   function index() {
-    return Math.round(track.scrollLeft / slides[0].offsetWidth);
+    var best = 0;
+    for (var i = 1; i < slides.length; i++) {
+      if (Math.abs(slideLeft(i) - track.scrollLeft) < Math.abs(slideLeft(best) - track.scrollLeft)) best = i;
+    }
+    return best;
   }
 
   function go(i) {
     i = Math.max(0, Math.min(slides.length - 1, i));
-    track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: "smooth" });
+    track.scrollTo({ left: slideLeft(i), behavior: "smooth" });
   }
 
   function update() {

@@ -8,9 +8,10 @@ Ground Truth is a new land-based trip format offered under the
 NUS School of Computing.
 
 Built with [Jekyll](https://jekyllrb.com/), plain SCSS, and no frontend
-framework. The only client-side JavaScript is a small progressive
-enhancement for the gallery carousel (`assets/js/carousel.js`); the mobile
-menu is CSS-only.
+framework. Client-side JavaScript is limited to small progressive
+enhancements: the gallery carousel (`assets/js/carousel.js`) and the latest
+iNaturalist Bioblitz observations (`assets/js/inaturalist.js`, loaded from
+the public iNaturalist API). The mobile menu is CSS-only.
 
 ## Running locally
 

@@ -81,6 +81,11 @@ schedule:
   - date: "Fri 18 Dec"
     plan: "Final project presentations, closing and return to Singapore"
 
+bioblitz:
+  url: "https://www.inaturalist.org/projects/groundtruth-trip-bintan-2026-bioblitz"
+  project: "groundtruth-trip-bintan-2026-bioblitz"   # iNaturalist project slug or id
+  description: "During the trip, the group records the plants, animals and fungi they encounter on iNaturalist. The latest observations appear below as they are added."
+
 resources:
   - label: "Packing list"
     url: "https://docs.google.com/document/d/1CdeCD5PCLE5w6Qhh0XEJrFvwYj8oSX2nz0E2jhsD9gc/edit?tab=t.0"
